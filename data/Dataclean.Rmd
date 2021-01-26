@@ -1,0 +1,132 @@
+---
+title: "Dataclean"
+author: "Zihui Qin"
+date: '2021-01-24'
+output: pdf_document
+---
+```{r}
+df <- read.csv('df.csv')
+mkt <- read.csv('market_data.csv')
+```
+
+
+```{r}
+head(mkt)
+```
+
+```{r}
+df1 <- data.frame(title = mkt$position_title,
+                  Location = 'Ontario',
+                  numbersofjob = mkt$ontario_no_jobs,
+                  jobgrowth = mkt$Ontario_job_growth,
+                  salary = mkt$Ontario_salary,
+                  salarygrowth = mkt$Ontario_salary_growth
+)
+df2 <- data.frame(title = mkt$position_title,
+                  Location = 'Alberta',
+                  numbersofjob = mkt$Albarta_no_jobs,
+                  jobgrowth = mkt$Albarta_job_growth,
+                  salary = mkt$Albarta_salary,
+                  salarygrowth = mkt$Albarta_salary_growth
+)
+df3 <- data.frame(title = mkt$position_title,
+                  Location = 'British Columbia',
+                  numbersofjob = mkt$BC_no_jobs,
+                  jobgrowth = mkt$BC_job_growth,
+                  salary = mkt$BC_salary,
+                  salarygrowth = mkt$BC_salary_growth
+)
+df4 <- data.frame(title = mkt$position_title,
+                  Location = 'Newfoundland and Labrador',
+                  numbersofjob = mkt$Newfoundland_and_Labrador_no_jobs,
+                  jobgrowth = mkt$Newfoundland_and_Labrador_job_growth,
+                  salary = mkt$Newfoundland_and_Labrador_salary,
+                  salarygrowth = mkt$Newfoundland_and_Labrador_salary_growth
+)
+df5 <- data.frame(title = mkt$position_title,
+                  Location = 'Northwest Territories',
+                  numbersofjob = mkt$Northwest_Territories_no_jobs,
+                  jobgrowth = mkt$Northwest_Territories_job_growth,
+                  salary = mkt$Northwest_Territories_salary,
+                  salarygrowth = mkt$Northwest_Territories_salary_growth
+)
+df6 <- data.frame(title = mkt$position_title,
+                  Location = 'Nova Scotia',
+                  numbersofjob = mkt$Nova_Scotia_no_jobs,
+                  jobgrowth = mkt$Nova_Scotia_job_growth,
+                  salary = mkt$Nova_Scotia_salary,
+                  salarygrowth = mkt$Nova_Scotia_salary_growth
+)
+df7 <- data.frame(title = mkt$position_title,
+                  Location = 'Nunavut',
+                  numbersofjob = mkt$Nunavut_no_jobs,
+                  jobgrowth = mkt$Nunavut_job_growth,
+                  salary = mkt$Nunavut_salary,
+                  salarygrowth = mkt$Nunavut_salary_growth
+)
+df8 <- data.frame(title = mkt$position_title,
+                  Location = 'Prince Edward Island',
+                  numbersofjob = mkt$Prince_Edward_Island_no_jobs,
+                  jobgrowth = mkt$Prince_Edward_Island_job_growth,
+                  salary = mkt$Prince_Edward_Island_salary,
+                  salarygrowth = mkt$Prince_Edward_Island_salary_growth
+)
+df9 <- data.frame(title = mkt$position_title,
+                  Location = 'Quebec',
+                  numbersofjob = mkt$Quebec_no_jobs,
+                  jobgrowth = mkt$Quebec_job_growth,
+                  salary = mkt$Quebec_salary,
+                  salarygrowth = mkt$Quebec_salary_growth
+)
+df10 <- data.frame(title = mkt$position_title,
+                  Location = 'Saskatchewan',
+                  numbersofjob = mkt$Saskatchewan_no_jobs,
+                  jobgrowth = mkt$Saskatchewan_job_growth,
+                  salary = mkt$Saskatchewan_salary,
+                  salarygrowth = mkt$Saskatchewan_salary_growth
+)
+df11 <- data.frame(title = mkt$position_title,
+                  Location = 'Yukon',
+                  numbersofjob = mkt$Yukon_no_jobs,
+                  jobgrowth = mkt$Yukon_job_growth,
+                  salary = mkt$Yukon_salary,
+                  salarygrowth = mkt$Yukon_salary_growth
+)
+df12 <- data.frame(title = mkt$position_title,
+                  Location = 'Manitoba',
+                  numbersofjob = mkt$Manitoba_no_jobs,
+                  jobgrowth = mkt$Manitoba_job_growth,
+                  salary = mkt$Manitoba_salary,
+                  salarygrowth = mkt$Manitoba_salary_growth
+)
+df13 <- data.frame(title = mkt$position_title,
+                  Location = 'New Brunswick',
+                  numbersofjob = mkt$New_Brunswick_no_jobs,
+                  jobgrowth = mkt$New_Brunswick_job_growth,
+                  salary = mkt$New_Brunswick_salary,
+                  salarygrowth = mkt$New_Brunswick_salary_growth
+)
+```
+
+```{r}
+newdf <- rbind(df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13)
+```
+
+```{r}
+length(unique(df$job_title))
+```
+```{r}
+df$Mergecol = paste(df$job_title,df$work_location)
+newdf$Mergecol = paste(newdf$title,newdf$Location)
+```
+
+
+```{r}
+library(dplyr)
+finaldf <- left_join(df,newdf,by = "Mergecol")
+```
+
+```{r}
+write.csv(finaldf,'dfnew.csv')
+```
+
